@@ -1,3 +1,5 @@
+import AIPopup from "AI/AIPopup"
+
 const hyprland = await Service.import("hyprland")
 const mpris = await Service.import("mpris")
 const notifications = await Service.import("notifications")
@@ -86,6 +88,7 @@ function Right() {
         children: [
             Volume(),
             SysTray(),
+            AIPopup(),
         ],
     })
 }

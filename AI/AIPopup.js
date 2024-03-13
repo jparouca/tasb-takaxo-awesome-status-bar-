@@ -2,7 +2,7 @@ const { Settings } = ags.Service;
 const { PopupWindow } = internal.Widgets;
 const { Button, Icon, Box, Label, Entry, Scrollable } = ags.Widget;
 import ChatGPT from './AIService.js';
-import icons from '../../js/icons.js';
+import icons from 'js/icons.js';
 
 const Message = (msg, subs) => Box({
   className: `aimessage ${msg.role}`,
@@ -49,16 +49,16 @@ export default () => PopupWindow({
           setup: box => ChatGPT.messages.map(msg => box._onAdded(box, msg)),
           properties: [
             ['onAdded', (box, msg) => {
-                if (!msg) return;
-                box.add(Message(msg, Settings.getSetting('labelReplacement', new Map())))
+              if (!msg) return;
+              box.add(Message(msg, Settings.getSetting('labelReplacement', new Map())))
             }]
           ],
           connections: [[ChatGPT, (box, idx) => box._onAdded(box, ChatGPT.messages[idx]), 'newMsg'],
-          [ChatGPT, box => { 
-              if (ChatGPT.messages.length == 0) {
-                box.children = []
-              }
-            }, 'clear']]
+          [ChatGPT, box => {
+            if (ChatGPT.messages.length == 0) {
+              box.children = []
+            }
+          }, 'clear']]
         })
       }),
       Box({
