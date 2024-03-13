@@ -1,12 +1,16 @@
 .workspaces {
-  margin-left: 40px;
-}
-.systray {
-  margin-right: 40px;
+    font-weight: bold;
+    margin-left: 40px;
 }
 
-window{
-    /* transparent background color below */
+.systray {}
+
+.clock {
+    font-weight: bold;
+    margin-right: 40px;
+}
+
+window {
     background-color: transparent;
 }
 
@@ -25,8 +29,7 @@ button:hover {
     border-bottom: 3px solid @theme_fg_color;
 }
 
-label {
-}
+label {}
 
 .workspaces button.focused {
     border-bottom: 3px solid @theme_selected_bg_color;
@@ -41,5 +44,4 @@ label {
 }
 
 levelbar block,
-highlight {
-}
+highlight {}
