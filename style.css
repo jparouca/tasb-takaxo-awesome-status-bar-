@@ -5,7 +5,9 @@
   margin-right: 40px;
 }
 
-window.bar {
+window{
+    /* transparent background color below */
+    background-color: transparent;
 }
 
 button {

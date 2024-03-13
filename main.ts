@@ -18,7 +18,7 @@ function Workspaces() {
     const workspaces = hyprland.bind("workspaces")
         .as(ws => ws
             .sort((a, b) => a.id - b.id)
-            .filter(({ id }) => id !== -99)
+            .filter(({ id }) => id !== -99) // exclude scratchpad/ special workspaces
             .map(({ id }) => Widget.Button({
                 on_clicked: () => hyprland.messageAsync(`dispatch workspace ${id}`),
                 child: Widget.Label(`${id}`),
@@ -49,7 +49,7 @@ function Media() {
             const { track_artists, track_title } = mpris.players[0]
             return `${track_artists.join(", ")} - ${track_title}`
         } else {
-            return "Nothing is playing"
+            return ""
         }
     })
 
