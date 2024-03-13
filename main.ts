@@ -16,11 +16,14 @@ function Left() {
 function Workspaces() {
     const activeId = hyprland.active.workspace.bind("id")
     const workspaces = hyprland.bind("workspaces")
-        .as(ws => ws.map(({ id }) => Widget.Button({
-            on_clicked: () => hyprland.messageAsync(`dispatch workspace ${id}`),
-            child: Widget.Label(`${id}`),
-            class_name: activeId.as(i => `${i === id ? "focused" : ""}`),
-        })))
+        .as(ws => ws
+            .sort((a, b) => a.id - b.id)
+            .filter(({ id }) => id !== -99)
+            .map(({ id }) => Widget.Button({
+                on_clicked: () => hyprland.messageAsync(`dispatch workspace ${id}`),
+                child: Widget.Label(`${id}`),
+                class_name: activeId.as(i => `${i === id ? "focused" : ""}`),
+            })))
 
     return Widget.Box({
         class_name: "workspaces",
@@ -140,6 +143,7 @@ function SysTray() {
         })))
 
     return Widget.Box({
+        class_name: "systray",
         children: items,
     })
 }
@@ -159,6 +163,7 @@ const Bar = (monitor: number = 0) => Widget.Window({
 
 App.config({
     windows: [Bar()],
+    style: './style.css'
 });
 
 
