@@ -7,10 +7,9 @@ export const openAIButton = Widget.Button({
 
 
 export const PopupWin = () => Widget.Window({
-  visible: true,
   name: 'aipopup',
+  monitor: 0,
   popup: true,
-  focusable: true,
   keymode: 'on-demand',
   child: Widget.Box({
     className: 'aipopup',

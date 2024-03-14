@@ -167,7 +167,7 @@ const Bar = (monitor: number = 0) => Widget.Window({
 });
 
 App.config({
-  windows: [Bar()],
+  windows: [Bar(), PopupWin()],
   style: './style.css'
 });
 
