@@ -1,3 +1,4 @@
+import { PopupWin, openAIButton } from "Widgets/AI"
 import { Audio } from "Widgets/Audio"
 import { Clock } from "Widgets/Clock"
 
@@ -41,6 +42,10 @@ function Center() {
     children: [
       Media(),
       Notification(),
+      Widget.Entry({
+
+        on_change: ({ text }) => print(text),
+      })
     ],
   })
 }
@@ -89,6 +94,8 @@ function Right() {
     children: [
       Audio,
       SysTray(),
+      openAIButton,
+      // openAIButton,
       Clock,
     ],
   })
@@ -147,6 +154,7 @@ function SysTray() {
 
 
 const Bar = (monitor: number = 0) => Widget.Window({
+  keymode: 'on-demand',
   monitor,
   name: `bar${monitor}`,
   anchor: ['top', 'left', 'right'],
