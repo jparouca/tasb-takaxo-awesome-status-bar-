@@ -3,6 +3,7 @@ import GLib from 'gi://GLib';
 import Soup from 'gi://Soup?version=3.0';
 import { Settings } from 'js/settings';
 
+
 class ChatGPTMessage extends Service {
   static {
     Service.register(this);

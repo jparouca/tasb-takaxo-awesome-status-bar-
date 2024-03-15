@@ -1,5 +1,4 @@
 import App from 'resource:///com/github/Aylur/ags/app.js';
-import Service from 'resource:///com/github/Aylur/ags/service/service.js';
 import { exec, execAsync, readFile, writeFile } from 'resource:///com/github/Aylur/ags/utils.js';
 
 class SettingsService extends Service {
@@ -10,16 +9,16 @@ class SettingsService extends Service {
     constructor() {
         super();
 
-        ags.Utils.subprocess([
+        Utils.subprocess([
             'inotifywait',
             '--recursive',
             '--exclude', 'extensions',
             '--exclude', 'style.css',
             '--event', 'modify',
-            '-m', ags.App.configDir,
-          ], () => {
-              this.reset()
-          });
+            '-m', App.configDir,
+        ], () => {
+            this.reset()
+        });
     }
 
     reset() {
@@ -43,8 +42,8 @@ class SettingsService extends Service {
     getSetting(prop, defaultValue) {
         const pathArray = prop.match(/([^[.\]])+/g)
         const result = pathArray.reduce(
-          (prevObj, key) => prevObj && prevObj[key],
-          this.settings
+            (prevObj, key) => prevObj && prevObj[key],
+            this.settings
         )
         return result === undefined ? defaultValue : result
     }
@@ -53,38 +52,38 @@ class SettingsService extends Service {
         const sides = ['top', 'right', 'bottom', 'left']
         let bar_pos = Math.max(0, sides.indexOf(this.getSetting('config.bar.type', 'top')));
         switch (mon_side) {
-          case 'bar_op':
-            bar_pos = (bar_side + 2) % 4
-            break;
-          case 'bar_clock':
-            bar_pos = (bar_side + 1) % 4
-            break;
-          case 'bar_anticlock':
-            bar_pos = (bar_side - 1) % 4
-            break;
-          case 'bar':
-          default:
-            break;
+            case 'bar_op':
+                bar_pos = (bar_side + 2) % 4
+                break;
+            case 'bar_clock':
+                bar_pos = (bar_side + 1) % 4
+                break;
+            case 'bar_anticlock':
+                bar_pos = (bar_side - 1) % 4
+                break;
+            case 'bar':
+            default:
+                break;
         }
         let pos = sides[bar_pos]
         switch (bar_side) {
-          case 'full':
-            pos += ' ' + sides[(bar_pos+1)%4]
-            pos += ' ' + sides[(bar_pos-1)%4]
-            break;
-          case 'end':
-            pos += ' ' + sides[(bar_pos+((1-bar_pos) >= 0 ? 1 : -1))%4]
-            break;
-          case 'start':
-            pos += ' ' + sides[(bar_pos+((1-bar_pos) > 0 ? -1 : 1))%4]
-            break;
-          default:
-            break;
+            case 'full':
+                pos += ' ' + sides[(bar_pos + 1) % 4]
+                pos += ' ' + sides[(bar_pos - 1) % 4]
+                break;
+            case 'end':
+                pos += ' ' + sides[(bar_pos + ((1 - bar_pos) >= 0 ? 1 : -1)) % 4]
+                break;
+            case 'start':
+                pos += ' ' + sides[(bar_pos + ((1 - bar_pos) > 0 ? -1 : 1)) % 4]
+                break;
+            default:
+                break;
         }
         return pos;
     }
 
-    getVertical(){
+    getVertical() {
         const bar_pos = this.getSetting('config.bar.type', 'top');
         return (bar_pos === 'top' || bar_pos === 'bottom') ? false : true;
     }
